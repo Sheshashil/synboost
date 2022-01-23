@@ -29,6 +29,7 @@ parser.add_argument('--wandb_run_id', type=str, default=None, help='Previous Run
 parser.add_argument('--wandb_run', type=str, default=None, help='Name of wandb run')
 parser.add_argument('--wandb_project', type=str, default="MLRC_Synboost", help='wandb project name')
 parser.add_argument('--wandb', type=bool, default=True, help='Log to wandb')
+parser.add_argument('--epoch', type=int, default=12, help='best epoch number in wandb')
 
 opts = parser.parse_args()
 cudnn.benchmark = True
@@ -50,6 +51,7 @@ def grid_search(model_num=4):
     d = {}
     w = [0, 1, 2, 3]
     best_score, best_roc, best_ap, best_weights = 1.0, 0, 0, None
+    best = -1
     # iterate all possible combinations (cartesian product)
     for weights in product(w, repeat=model_num):
         # skip if all weights are equal
@@ -64,8 +66,9 @@ def grid_search(model_num=4):
         # evaluate weights
         score_roc, score_ap, score_fp = evaluate_ensemble(weights)
         print('Weights: %s Score_FP: %.3f Score_ROC:%.3f Score_AP:%.3f' % (weights, score_fp, score_roc, score_ap))
-        if score_fp < best_score:
+        if score_ap - score_fp > best:
             best_score, best_weights, best_roc, best_ap = score_fp, weights, score_roc, score_ap
+            best = score_ap - score_fp
             print('>BEST SO FAR %s Score_FP: %.3f Score_ROC:%.3f Score_AP:%.3f' % (best_weights, best_score, best_roc, best_ap))
     return list(best_weights), best_score, best_roc, best_ap
 
@@ -165,7 +168,7 @@ if __name__ == '__main__':
     wandb_utils.init_wandb(config=config, key=opts.wandb_Api_key,wandb_project= opts.wandb_project, wandb_run=opts.wandb_run, wandb_run_id=opts.wandb_run_id, wandb_resume=opts.wandb_resume)
     diss_model.eval()
     if use_wandb and wandb_resume:
-        checkpoint = load_ckp(config["wandb_config"]["model_path_base"], "best", 12)
+        checkpoint = load_ckp(config["wandb_config"]["model_path_base"], "best", opts.epoch)
         diss_model.load_state_dict(checkpoint['state_dict'], strict=False)
     
     softmax = torch.nn.Softmax(dim=1)
