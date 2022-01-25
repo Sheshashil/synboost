@@ -31,16 +31,16 @@ class DissimNet(nn.Module):
         # layers for decoder
         # all the 3x3 convolutions
         if correlation:
-            self.conv1 = nn.Sequential(nn.Conv2d(513, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv12 = nn.Sequential(nn.Conv2d(513, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv3 = nn.Sequential(nn.Conv2d(385, 128, kernel_size=3, padding=1), nn.ReLU())
-            self.conv5 = nn.Sequential(nn.Conv2d(193, 64, kernel_size=3, padding=1), nn.ReLU())
+            self.conv1 = nn.Sequential(nn.Conv2d(513, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv12 = nn.Sequential(nn.Conv2d(513, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv3 = nn.Sequential(nn.Conv2d(385, 128, kernel_size=3, padding=1), nn.SELU())
+            self.conv5 = nn.Sequential(nn.Conv2d(193, 64, kernel_size=3, padding=1), nn.SELU())
 
         else:
-            self.conv1 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv12 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv3 = nn.Sequential(nn.Conv2d(384, 128, kernel_size=3, padding=1), nn.ReLU())
-            self.conv5 = nn.Sequential(nn.Conv2d(192, 64, kernel_size=3, padding=1), nn.ReLU())
+            self.conv1 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv12 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv3 = nn.Sequential(nn.Conv2d(384, 128, kernel_size=3, padding=1), nn.SELU())
+            self.conv5 = nn.Sequential(nn.Conv2d(192, 64, kernel_size=3, padding=1), nn.SELU())
 
         if self.spade == 'decoder' or self.spade == 'both':
             self.conv2 = SPADEDecoderLayer(nc=256, label_nc=num_semantic_classes)
@@ -48,10 +48,10 @@ class DissimNet(nn.Module):
             self.conv4 = SPADEDecoderLayer(nc=128, label_nc=num_semantic_classes)
             self.conv6 = SPADEDecoderLayer(nc=64, label_nc=num_semantic_classes)
         else:
-            self.conv2 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv13 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv4 = nn.Sequential(nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU())
-            self.conv6 = nn.Sequential(nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.ReLU())
+            self.conv2 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv13 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv4 = nn.Sequential(nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.SELU())
+            self.conv6 = nn.Sequential(nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.SELU())
 
         # all the tranposed convolutions
         self.tconv1 = nn.ConvTranspose2d(256, 256, kernel_size=2, stride=2, padding=0)
@@ -188,16 +188,16 @@ class DissimNetPrior(nn.Module):
         # layers for decoder
         # all the 3x3 convolutions
         if correlation:
-            self.conv1 = nn.Sequential(nn.Conv2d(513, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv12 = nn.Sequential(nn.Conv2d(513, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv3 = nn.Sequential(nn.Conv2d(385, 128, kernel_size=3, padding=1), nn.ReLU())
-            self.conv5 = nn.Sequential(nn.Conv2d(193, 64, kernel_size=3, padding=1), nn.ReLU())
+            self.conv1 = nn.Sequential(nn.Conv2d(513, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv12 = nn.Sequential(nn.Conv2d(513, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv3 = nn.Sequential(nn.Conv2d(385, 128, kernel_size=3, padding=1), nn.SELU())
+            self.conv5 = nn.Sequential(nn.Conv2d(193, 64, kernel_size=3, padding=1), nn.SELU())
 
         else:
-            self.conv1 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv12 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv3 = nn.Sequential(nn.Conv2d(384, 128, kernel_size=3, padding=1), nn.ReLU())
-            self.conv5 = nn.Sequential(nn.Conv2d(192, 64, kernel_size=3, padding=1), nn.ReLU())
+            self.conv1 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv12 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv3 = nn.Sequential(nn.Conv2d(384, 128, kernel_size=3, padding=1), nn.SELU())
+            self.conv5 = nn.Sequential(nn.Conv2d(192, 64, kernel_size=3, padding=1), nn.SELU())
 
         if self.spade == 'decoder' or self.spade == 'both':
             self.conv2 = SPADEDecoderLayer(nc=256, label_nc=num_semantic_classes)
@@ -205,10 +205,10 @@ class DissimNetPrior(nn.Module):
             self.conv4 = SPADEDecoderLayer(nc=128, label_nc=num_semantic_classes)
             self.conv6 = SPADEDecoderLayer(nc=64, label_nc=num_semantic_classes)
         else:
-            self.conv2 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv13 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv4 = nn.Sequential(nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU())
-            self.conv6 = nn.Sequential(nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.ReLU())
+            self.conv2 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv13 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv4 = nn.Sequential(nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.SELU())
+            self.conv6 = nn.Sequential(nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.SELU())
 
         # all the tranposed convolutions
         self.tconv1 = nn.ConvTranspose2d(256, 256, kernel_size=2, stride=2, padding=0)
@@ -351,16 +351,16 @@ class ResNetDissimNet(nn.Module):
         # layers for decoder
         # all the 3x3 convolutions
         if correlation:
-            self.conv1 = nn.Sequential(nn.Conv2d(513, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv12 = nn.Sequential(nn.Conv2d(513, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv3 = nn.Sequential(nn.Conv2d(385, 128, kernel_size=3, padding=1), nn.ReLU())
-            self.conv5 = nn.Sequential(nn.Conv2d(193, 64, kernel_size=3, padding=1), nn.ReLU())
+            self.conv1 = nn.Sequential(nn.Conv2d(513, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv12 = nn.Sequential(nn.Conv2d(513, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv3 = nn.Sequential(nn.Conv2d(385, 128, kernel_size=3, padding=1), nn.SELU())
+            self.conv5 = nn.Sequential(nn.Conv2d(193, 64, kernel_size=3, padding=1), nn.SELU())
 
         else:
-            self.conv1 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv12 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv3 = nn.Sequential(nn.Conv2d(384, 128, kernel_size=3, padding=1), nn.ReLU())
-            self.conv5 = nn.Sequential(nn.Conv2d(192, 64, kernel_size=3, padding=1), nn.ReLU())
+            self.conv1 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv12 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv3 = nn.Sequential(nn.Conv2d(384, 128, kernel_size=3, padding=1), nn.SELU())
+            self.conv5 = nn.Sequential(nn.Conv2d(192, 64, kernel_size=3, padding=1), nn.SELU())
         
         if self.spade == 'decoder' or self.spade == 'both':
             self.conv2 = SPADEDecoderLayer(nc=256, label_nc=num_semantic_classes)
@@ -368,10 +368,10 @@ class ResNetDissimNet(nn.Module):
             self.conv4 = SPADEDecoderLayer(nc=128, label_nc=num_semantic_classes)
             self.conv6 = SPADEDecoderLayer(nc=64, label_nc=num_semantic_classes)
         else:
-            self.conv2 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv13 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv4 = nn.Sequential(nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU())
-            self.conv6 = nn.Sequential(nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.ReLU())
+            self.conv2 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv13 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv4 = nn.Sequential(nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.SELU())
+            self.conv6 = nn.Sequential(nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.SELU())
         
         # all the tranposed convolutions
         self.tconv1 = nn.ConvTranspose2d(256, 256, kernel_size=2, stride=2, padding=0)
@@ -517,16 +517,16 @@ class ResNetDissimNetPrior(nn.Module):
         # layers for decoder
         # all the 3x3 convolutions
         if correlation:
-            self.conv1 = nn.Sequential(nn.Conv2d(513, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv12 = nn.Sequential(nn.Conv2d(513, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv3 = nn.Sequential(nn.Conv2d(385, 128, kernel_size=3, padding=1), nn.ReLU())
-            self.conv5 = nn.Sequential(nn.Conv2d(193, 64, kernel_size=3, padding=1), nn.ReLU())
+            self.conv1 = nn.Sequential(nn.Conv2d(513, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv12 = nn.Sequential(nn.Conv2d(513, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv3 = nn.Sequential(nn.Conv2d(385, 128, kernel_size=3, padding=1), nn.SELU())
+            self.conv5 = nn.Sequential(nn.Conv2d(193, 64, kernel_size=3, padding=1), nn.SELU())
 
         else:
-            self.conv1 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv12 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv3 = nn.Sequential(nn.Conv2d(384, 128, kernel_size=3, padding=1), nn.ReLU())
-            self.conv5 = nn.Sequential(nn.Conv2d(192, 64, kernel_size=3, padding=1), nn.ReLU())
+            self.conv1 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv12 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv3 = nn.Sequential(nn.Conv2d(384, 128, kernel_size=3, padding=1), nn.SELU())
+            self.conv5 = nn.Sequential(nn.Conv2d(192, 64, kernel_size=3, padding=1), nn.SELU())
         
         if self.spade == 'decoder' or self.spade == 'both':
             self.conv2 = SPADEDecoderLayer(nc=256, label_nc=num_semantic_classes)
@@ -534,10 +534,10 @@ class ResNetDissimNetPrior(nn.Module):
             self.conv4 = SPADEDecoderLayer(nc=128, label_nc=num_semantic_classes)
             self.conv6 = SPADEDecoderLayer(nc=64, label_nc=num_semantic_classes)
         else:
-            self.conv2 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv13 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv4 = nn.Sequential(nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU())
-            self.conv6 = nn.Sequential(nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.ReLU())
+            self.conv2 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv13 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv4 = nn.Sequential(nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.SELU())
+            self.conv6 = nn.Sequential(nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.SELU())
         
         # all the tranposed convolutions
         self.tconv1 = nn.ConvTranspose2d(256, 256, kernel_size=2, stride=2, padding=0)
@@ -767,10 +767,10 @@ class GuidedDissimNet(nn.Module):
         
         # layers for decoder
         # all the 3x3 convolutions
-        self.conv1 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU())
-        self.conv12 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU())
-        self.conv3 = nn.Sequential(nn.Conv2d(384, 128, kernel_size=3, padding=1), nn.ReLU())
-        self.conv5 = nn.Sequential(nn.Conv2d(192, 64, kernel_size=3, padding=1), nn.ReLU())
+        self.conv1 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.SELU())
+        self.conv12 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.SELU())
+        self.conv3 = nn.Sequential(nn.Conv2d(384, 128, kernel_size=3, padding=1), nn.SELU())
+        self.conv5 = nn.Sequential(nn.Conv2d(192, 64, kernel_size=3, padding=1), nn.SELU())
         
         # spade decoder
         self.conv2 = SPADEDecoderLayer(nc=256, label_nc=num_semantic_classes)
@@ -918,11 +918,11 @@ class CorrelatedDissimNet(nn.Module):
         self.og_gc1 = GuideCorrelation(nc=64, guide_nc=64)
         self.og_gc2 = GuideCorrelation(nc=64, guide_nc=num_semantic_classes)
         self.og_gn1 = GuideNormalization(nc=64)
-        self.og_relu1 = nn.ReLU(inplace=True)
+        self.og_relu1 = nn.SELU(inplace=True)
         self.syn_gc1 = GuideCorrelation(nc=64, guide_nc=64)
         self.syn_gc2 = GuideCorrelation(nc=64, guide_nc=num_semantic_classes)
         self.syn_gn1 = GuideNormalization(nc=64)
-        self.syn_relu1 = nn.ReLU(inplace=True)
+        self.syn_relu1 = nn.SELU(inplace=True)
         self.og_max1 = nn.MaxPool2d(kernel_size=2, stride=2)
         self.syn_max1 = nn.MaxPool2d(kernel_size=2, stride=2)
 
@@ -934,11 +934,11 @@ class CorrelatedDissimNet(nn.Module):
         self.og_gc3 = GuideCorrelation(nc=128, guide_nc=128)
         self.og_gc4 = GuideCorrelation(nc=128, guide_nc=num_semantic_classes)
         self.og_gn2 = GuideNormalization(nc=128)
-        self.og_relu2 = nn.ReLU(inplace=True)
+        self.og_relu2 = nn.SELU(inplace=True)
         self.syn_gc3 = GuideCorrelation(nc=128, guide_nc=128)
         self.syn_gc4 = GuideCorrelation(nc=128, guide_nc=num_semantic_classes)
         self.syn_gn2 = GuideNormalization(nc=128)
-        self.syn_relu2 = nn.ReLU(inplace=True)
+        self.syn_relu2 = nn.SELU(inplace=True)
         self.og_max2 = nn.MaxPool2d(kernel_size=2, stride=2)
         self.syn_max2 = nn.MaxPool2d(kernel_size=2, stride=2)
 
@@ -952,11 +952,11 @@ class CorrelatedDissimNet(nn.Module):
         self.og_gc5 = GuideCorrelation(nc=256, guide_nc=256)
         self.og_gc6 = GuideCorrelation(nc=256, guide_nc=num_semantic_classes)
         self.og_gn3 = GuideNormalization(nc=256)
-        self.og_relu3 = nn.ReLU(inplace=True)
+        self.og_relu3 = nn.SELU(inplace=True)
         self.syn_gc5 = GuideCorrelation(nc=256, guide_nc=256)
         self.syn_gc6 = GuideCorrelation(nc=256, guide_nc=num_semantic_classes)
         self.syn_gn3 = GuideNormalization(nc=256)
-        self.syn_relu3 = nn.ReLU(inplace=True)
+        self.syn_relu3 = nn.SELU(inplace=True)
         self.og_max3 = nn.MaxPool2d(kernel_size=2, stride=2)
         self.syn_max3 = nn.MaxPool2d(kernel_size=2, stride=2)
 
@@ -970,18 +970,18 @@ class CorrelatedDissimNet(nn.Module):
         self.og_gc7 = GuideCorrelation(nc=512, guide_nc=512)
         self.og_gc8 = GuideCorrelation(nc=512, guide_nc=num_semantic_classes)
         self.og_gn4 = GuideNormalization(nc=512)
-        self.og_relu4 = nn.ReLU(inplace=True)
+        self.og_relu4 = nn.SELU(inplace=True)
         self.syn_gc7 = GuideCorrelation(nc=512, guide_nc=512)
         self.syn_gc8 = GuideCorrelation(nc=512, guide_nc=num_semantic_classes)
         self.syn_gn4 = GuideNormalization(nc=512)
-        self.syn_relu4 = nn.ReLU(inplace=True)
+        self.syn_relu4 = nn.SELU(inplace=True)
         
         # layers for decoder
         # all the 3x3 convolutions
-        self.conv1 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU())
-        self.conv12 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU())
-        self.conv3 = nn.Sequential(nn.Conv2d(384, 128, kernel_size=3, padding=1), nn.ReLU())
-        self.conv5 = nn.Sequential(nn.Conv2d(192, 64, kernel_size=3, padding=1), nn.ReLU())
+        self.conv1 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.SELU())
+        self.conv12 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.SELU())
+        self.conv3 = nn.Sequential(nn.Conv2d(384, 128, kernel_size=3, padding=1), nn.SELU())
+        self.conv5 = nn.Sequential(nn.Conv2d(192, 64, kernel_size=3, padding=1), nn.SELU())
         
         # spade decoder
         if self.spade == 'decoder' or self.spade == 'both':
@@ -990,10 +990,10 @@ class CorrelatedDissimNet(nn.Module):
             self.conv4 = SPADEDecoderLayer(nc=128, label_nc=num_semantic_classes)
             self.conv6 = SPADEDecoderLayer(nc=64, label_nc=num_semantic_classes)
         else:
-            self.conv2 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv13 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv4 = nn.Sequential(nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU())
-            self.conv6 = nn.Sequential(nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.ReLU())
+            self.conv2 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv13 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv4 = nn.Sequential(nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.SELU())
+            self.conv6 = nn.Sequential(nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.SELU())
         
         # all the tranposed convolutions
         self.tconv1 = nn.ConvTranspose2d(256, 256, kernel_size=2, stride=2, padding=0)
@@ -1150,9 +1150,9 @@ class CorrelatedDissimNetGuide(nn.Module):
         self.og_conv1 = nn.Conv2d(64, 64, kernel_size=3, padding=1)
         self.syn_conv1 = nn.Conv2d(64, 64, kernel_size=3, padding=1)
         self.og_gc1 = SPADE(norm_nc=64, label_nc=64)
-        self.og_relu1 = nn.ReLU(inplace=True)
+        self.og_relu1 = nn.SELU(inplace=True)
         self.syn_gc1 = SPADE(norm_nc=64, label_nc=64)
-        self.syn_relu1 = nn.ReLU(inplace=True)
+        self.syn_relu1 = nn.SELU(inplace=True)
         self.og_max1 = nn.MaxPool2d(kernel_size=2, stride=2)
         self.syn_max1 = nn.MaxPool2d(kernel_size=2, stride=2)
 
@@ -1162,9 +1162,9 @@ class CorrelatedDissimNetGuide(nn.Module):
         self.og_conv2 = nn.Conv2d(128, 128, kernel_size=3, padding=1)
         self.syn_conv2 = nn.Conv2d(128, 128, kernel_size=3, padding=1)
         self.og_gc2 = SPADE(norm_nc=128, label_nc=128)
-        self.og_relu2 = nn.ReLU(inplace=True)
+        self.og_relu2 = nn.SELU(inplace=True)
         self.syn_gc2 = SPADE(norm_nc=128, label_nc=128)
-        self.syn_relu2 = nn.ReLU(inplace=True)
+        self.syn_relu2 = nn.SELU(inplace=True)
         self.og_max2 = nn.MaxPool2d(kernel_size=2, stride=2)
         self.syn_max2 = nn.MaxPool2d(kernel_size=2, stride=2)
 
@@ -1176,9 +1176,9 @@ class CorrelatedDissimNetGuide(nn.Module):
         self.og_conv3 = nn.Conv2d(256, 256, kernel_size=3, padding=1)
         self.syn_conv3 = nn.Conv2d(256, 256, kernel_size=3, padding=1)
         self.og_gc3 = SPADE(norm_nc=256, label_nc=256)
-        self.og_relu3 = nn.ReLU(inplace=True)
+        self.og_relu3 = nn.SELU(inplace=True)
         self.syn_gc3 = SPADE(norm_nc=256, label_nc=256)
-        self.syn_relu3 = nn.ReLU(inplace=True)
+        self.syn_relu3 = nn.SELU(inplace=True)
         self.og_max3 = nn.MaxPool2d(kernel_size=2, stride=2)
         self.syn_max3 = nn.MaxPool2d(kernel_size=2, stride=2)
 
@@ -1190,16 +1190,16 @@ class CorrelatedDissimNetGuide(nn.Module):
         self.og_conv4 = nn.Conv2d(512, 512, kernel_size=3, padding=1)
         self.syn_conv4 = nn.Conv2d(512, 512, kernel_size=3, padding=1)
         self.og_gc4 = SPADE(norm_nc=512, label_nc=512)
-        self.og_relu4 = nn.ReLU(inplace=True)
+        self.og_relu4 = nn.SELU(inplace=True)
         self.syn_gc4 = SPADE(norm_nc=512, label_nc=512)
-        self.syn_relu4 = nn.ReLU(inplace=True)
+        self.syn_relu4 = nn.SELU(inplace=True)
 
         # layers for decoder
         # all the 3x3 convolutions
-        self.conv1 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU())
-        self.conv12 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.ReLU())
-        self.conv3 = nn.Sequential(nn.Conv2d(384, 128, kernel_size=3, padding=1), nn.ReLU())
-        self.conv5 = nn.Sequential(nn.Conv2d(192, 64, kernel_size=3, padding=1), nn.ReLU())
+        self.conv1 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.SELU())
+        self.conv12 = nn.Sequential(nn.Conv2d(512, 256, kernel_size=3, padding=1), nn.SELU())
+        self.conv3 = nn.Sequential(nn.Conv2d(384, 128, kernel_size=3, padding=1), nn.SELU())
+        self.conv5 = nn.Sequential(nn.Conv2d(192, 64, kernel_size=3, padding=1), nn.SELU())
 
         # spade decoder
         if self.spade == 'decoder' or self.spade == 'both':
@@ -1208,10 +1208,10 @@ class CorrelatedDissimNetGuide(nn.Module):
             self.conv4 = SPADEDecoderLayer(nc=128, label_nc=num_semantic_classes)
             self.conv6 = SPADEDecoderLayer(nc=64, label_nc=num_semantic_classes)
         else:
-            self.conv2 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv13 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.ReLU())
-            self.conv4 = nn.Sequential(nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.ReLU())
-            self.conv6 = nn.Sequential(nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.ReLU())
+            self.conv2 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv13 = nn.Sequential(nn.Conv2d(256, 256, kernel_size=3, padding=1), nn.SELU())
+            self.conv4 = nn.Sequential(nn.Conv2d(128, 128, kernel_size=3, padding=1), nn.SELU())
+            self.conv6 = nn.Sequential(nn.Conv2d(64, 64, kernel_size=3, padding=1), nn.SELU())
 
         # all the tranposed convolutions
         self.tconv1 = nn.ConvTranspose2d(256, 256, kernel_size=2, stride=2, padding=0)
@@ -1348,10 +1348,10 @@ class SPADEDecoderLayer(nn.Module):
 
         # create conv layers
         self.norm1 = SPADE(norm_nc=nc, label_nc=label_nc)
-        self.selu1 = nn.ReLU()
+        self.selu1 = nn.SELU()
         self.conv = nn.Conv2d(nc, nc, kernel_size=3, padding=1)
         self.norm2 = SPADE(norm_nc=nc, label_nc=label_nc)
-        self.selu2 = nn.ReLU()
+        self.selu2 = nn.SELU()
 
     def forward(self, x, seg):
         out = self.selu2(self.norm2(self.conv(self.selu1(self.norm1(x, seg))), seg))
@@ -1364,7 +1364,7 @@ class GuideEncoderLayer(nn.Module):
         # create conv layers
         self.conv = nn.Conv2d(nc_in, nc_out, kernel_size=3, padding=1)
         self.norm = nn.BatchNorm2d(nc_out, affine=False)
-        self.relu = nn.ReLU(inplace=True)
+        self.relu = nn.SELU(inplace=True)
 
     def forward(self, x):
         x = self.conv(x)
