@@ -17,7 +17,7 @@ from util.load import load_ckp
 
 from util import trainer_util, metrics
 from util.iter_counter import IterationCounter
-from models.dissimilarity_model import DissimNet, DissimNetPrior
+from models.dissimilarity_model import DissimNet, DissimNetPrior, ResNetDissimNet, ResNetDissimNetPrior
 
 parser = argparse.ArgumentParser()
 parser.add_argument('--config', type=str, help='Path to the config file.')
@@ -156,10 +156,16 @@ if __name__ == '__main__':
     test_loader = trainer_util.get_dataloader(cfg_test_loader['dataset_args'], cfg_test_loader['dataloader_args'])
     
     # get model
-    if config['model']['prior']:
-        diss_model = DissimNetPrior(**config['model']).cuda()
-    elif 'vgg' in config['model']['architecture']:
-        diss_model = DissimNet(**config['model']).cuda()
+    if 'vgg' in config['model']['architecture']:
+        if config['model']['prior']:
+            diss_model = DissimNetPrior(**config['model']).cuda()
+        else:
+            diss_model = DissimNet(**config['model']).cuda()
+    elif 'resnet' in config['model']['architecture']:
+        if config['model']['prior']:
+            diss_model = ResNetDissimNetPrior(**config['model']).cuda()
+        else:
+            diss_model = ResNetDissimNet(**config['model']).cuda()
     else:
         raise NotImplementedError()
     
@@ -169,7 +175,7 @@ if __name__ == '__main__':
     diss_model.eval()
     if use_wandb and wandb_resume:
         checkpoint = load_ckp(config["wandb_config"]["model_path_base"], "best", opts.epoch)
-        diss_model.load_state_dict(checkpoint['state_dict'], strict=False)
+        diss_model.load_state_dict(checkpoint['state_dict'])
     
     softmax = torch.nn.Softmax(dim=1)
     best_weights, best_score, best_roc, best_ap = grid_search()
